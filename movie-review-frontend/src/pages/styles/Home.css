@@ -3,8 +3,9 @@ body {
 }
 
 .card-image {
-    width: 260px;
-    display: block;
+    width: 85%;
+    padding: 0;
+    /* display: block;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto; */
 }

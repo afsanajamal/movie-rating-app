@@ -1,14 +1,22 @@
 // import { useState } from "react"
 // import reactLogo from "./assets/react.svg"
 // import viteLogo from "/vite.svg"
-import "./App.css"
-// import Home from "./pages/Home"
+import "./App.css";
+import Home from "./pages/Home";
+import MoviePage from "./pages/MoviePage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
     <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="movie/:id" element={<MoviePage />} />
+        </Routes>
+      </BrowserRouter>
       {/*
     <div>
         <a href="https://vitejs.dev" target="_blank">
@@ -31,12 +39,9 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
       */}
-      <h1 className="text-3xl font-bold underline text-red-600">
-        Simple React Typescript Tailwind Sample
-      </h1>
-      
+      {/* <Home /> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
