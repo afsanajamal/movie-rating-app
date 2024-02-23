@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSearchKey } from "../store/movieSlice";
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
+  const searchItem: any = (event: any) => {
+    console.log("check on search", event.target.value);
+    const key: string = event.target.value;
+    dispatch(setSearchKey(key));
+  };
   return (
     <>
       <nav className="main-menu">
@@ -47,7 +55,7 @@ const Header: React.FC = () => {
                 name="q"
                 className="py-2 w-[150px] text-sm text-white bg-[#1e293b] rounded-md pl-10 focus:outline-none focus:bg-[#202940] focus:text-white"
                 placeholder="Search..."
-                autocomplete="off"
+                // autocomplete="off"
               />
             </div>
           </form>
@@ -55,7 +63,7 @@ const Header: React.FC = () => {
             <ul className="bg-[#333e4d] duration-300 md:h-[40px] h-[10px] text-center leading-[35px] md:inline-flex md:my-3">
               <li className="mx-3">
                 <a className="text-md hover:text-lg" href="#">
-                  Hollywood
+                  Drama
                 </a>
               </li>
               <li className="mx-3">
@@ -65,12 +73,12 @@ const Header: React.FC = () => {
               </li>
               <li className="mx-3">
                 <a className="text-md hover:text-lg" href="#">
-                  Drama
+                  Comedy
                 </a>
               </li>
               <li className="mx-3">
                 <a className="text-md hover:text-lg" href="#">
-                  Korean
+                  Favourite
                 </a>
               </li>
               <li className="mx-3">
@@ -104,17 +112,12 @@ const Header: React.FC = () => {
                       name="q"
                       className="py-2 w-[200px] text-sm text-white bg-[#1e293b] rounded-md pl-10 focus:outline-none focus:bg-[#202940] focus:text-white"
                       placeholder="Search..."
-                      autocomplete="off"
+                      // autocomplete="off"
+                      onInput={(e) => searchItem(e)}
                     />
                   </div>
                 </form>
               </li>
-              {/* <li className="mx-3">
-                  <button type="button"
-                    className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                    Telegram
-                  </button>
-                </li> */}
             </ul>
           </div>
         </div>

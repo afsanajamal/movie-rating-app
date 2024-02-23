@@ -1,95 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import { Col, Row } from "antd";
-import post1 from "../assets/images/post1.jpg";
-import post2 from "../assets/images/post2.jpg";
+// import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import MovieCard from "../components/MovieCard";
 import Header from "../components/Header";
 import { Movie } from "../common/Interfaces";
+import { getMovies } from "../store/actions";
+import { RootState } from "../store/config";
+import { useDispatch, useSelector } from "react-redux";
+import { setMovies } from "../store/movieSlice";
 
 import "./styles/Home.css";
 
-// const baseURL = "http://127.0.0.1:8000";
-
-const movieData: Movie[] = [
-  {
-    id: 1,
-    imgSrc: post1,
-    title: "Avengers Endgame",
-    rating: 4,
-    ratingGiven: 13,
-  },
-  {
-    id: 2,
-    imgSrc: post2,
-    title: "Avengers Endgame",
-    rating: 4.5,
-    ratingGiven: 15,
-  },
-  {
-    id: 3,
-    imgSrc: post2,
-    title: "Avengers Endgame",
-    rating: 3,
-    ratingGiven: 23,
-  },
-  {
-    id: 4,
-    imgSrc: post1,
-    title: "Avengers Endgame",
-    rating: 4.8,
-    ratingGiven: 26,
-  },
-  {
-    id: 5,
-    imgSrc: post2,
-    title: "Avengers Endgame",
-    rating: 4.2,
-    ratingGiven: 33,
-  },
-  {
-    id: 6,
-    imgSrc: post1,
-    title: "Avengers Endgame",
-    rating: 4,
-    ratingGiven: 14,
-  },
-  {
-    id: 7,
-    imgSrc: post2,
-    title: "Avengers Endgame",
-    rating: 4.2,
-    ratingGiven: 33,
-  },
-  {
-    id: 8,
-    imgSrc: post1,
-    title: "Avengers Endgame",
-    rating: 4,
-    ratingGiven: 14,
-  },
-  {
-    id: 9,
-    imgSrc: post2,
-    title: "Avengers Endgame",
-    rating: 4.2,
-    ratingGiven: 33,
-  },
-  {
-    id: 10,
-    imgSrc: post1,
-    title: "Avengers Endgame",
-    rating: 4,
-    ratingGiven: 14,
-  },
-];
-
 const Home: React.FC = () => {
-  // const [test, setTest] = useState<string>('');
+  const dispatch = useDispatch();
+  const movieList: Movie[] = useSelector(
+    (state: RootState) => state.movie.movieList
+  );
+  const movieSearch: string = useSelector(
+    (state: RootState) => state.movie.searchKey
+  );
+  const [movieData, setMovieData] = useState<Movie[]>([]);
+
+  const filterMovies = (dataList: Movie[], key: string) => {
+    console.log("check the type of data", dataList);
+    return dataList.filter((data: Movie) => data.title.includes(key));
+  };
+
   useEffect(() => {
-    // axios.get(`${baseURL}/api/test`).then(() => {
-    //   // setTest(response.data);
-    // });
+    if (!movieList.length) {
+      const fetchMovieList = getMovies();
+      fetchMovieList.then((res: any) => {
+        setMovieData(res.data.data);
+        dispatch(setMovies(res.data.data));
+      });
+    } else {
+      setMovieData(movieList);
+    }
   }, []);
   return (
     <>
@@ -98,19 +45,12 @@ const Home: React.FC = () => {
         <main>
           <div className="notification grid place-items-center duration-300 ">
             <div className="flex items-center justify-center m-[20px] mx-[30px] rounded-lg bg-[#1e293b] w-[350px] h-[35px]">
-              {/* <span className="px-3 mx-2 text-sm rounded-full text-[#1e293b] bg-[#80b1ff]">Alert</span>
-              <p>Boomark for future visit.</p>
-              <span className="close-notif cursor-pointer text-[20px] mt-[8px] ml-[20px]" onClick={()=>{
-                  console.log("check")
-                }}>
-                <i className="close-circle-outline"></i>
-              </span> */}
               <h4 className="">Your favourite movies</h4>
             </div>
           </div>
           <Row className="p-16">
             {movieData &&
-              movieData.map((movie: Movie) => (
+              filterMovies(movieData, movieSearch).map((movie: Movie) => (
                 <>
                   <Col span={4}>
                     <MovieCard movieData={movie} />
