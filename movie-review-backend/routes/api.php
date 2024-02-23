@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\MovieController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Route::apiResource('movies', MovieController::class);
+    Route::post('/movies/users', [FavoriteController::class, 'create']);
+    Route::delete('/movies/users', [FavoriteController::class, 'destroy']);
+    Route::get('/movies/{movie}/favorite', [FavoriteController::class, 'isFavorite']);
+});
+Route::apiResource('movies', MovieController::class);
+
+require __DIR__.'/auth_email_verification.php';
