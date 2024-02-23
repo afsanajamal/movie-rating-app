@@ -4,8 +4,8 @@ import { RatingProps } from "../common/Interfaces";
 
 const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 
-const Rating: React.FC<RatingProps> = ({ rating, ratingCount }) => {
-  const [value, setValue] = useState<number>(rating);
+const Rating: React.FC<RatingProps> = ({ average_rating, ratingCount }) => {
+  const [value, setValue] = useState<number>(average_rating);
 
   return (
     <>
@@ -16,7 +16,11 @@ const Rating: React.FC<RatingProps> = ({ rating, ratingCount }) => {
               {/* <FaHeart className="text-red-600 cursor-pointer" /> */}
             </Col>
             <Col span={16}>
-              <Rate tooltips={desc} onChange={setValue} value={rating} />{" "}
+              <Rate
+                tooltips={desc}
+                onChange={setValue}
+                value={average_rating}
+              />{" "}
             </Col>
             <Col span={4}>{`(${ratingCount})`}</Col>
           </Row>
