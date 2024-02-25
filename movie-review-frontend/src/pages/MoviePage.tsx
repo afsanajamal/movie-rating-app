@@ -58,6 +58,7 @@ const MoviePage: React.FC = () => {
                         <Rating
                           average_rating={movie.average_rating}
                           ratingCount={movie.total_ratings}
+                          disable={true}
                         />
                       </p>
                       <div className="block text-left ml-8">

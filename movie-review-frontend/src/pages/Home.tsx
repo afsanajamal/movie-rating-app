@@ -52,7 +52,7 @@ const Home: React.FC = () => {
             {movieData &&
               filterMovies(movieData, movieSearch).map((movie: Movie) => (
                 <>
-                  <Col span={4}>
+                  <Col xs={24} md={12} lg={8} xl={4}>
                     <MovieCard movieData={movie} />
                   </Col>
                 </>

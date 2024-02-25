@@ -23,20 +23,25 @@ const MovieCard: React.FC<MovieProps> = ({ movieData }: MovieProps) => {
                 setImage(movieData);
               }}
               className="shadow-[0_0_10px_3px_#80b1ff] rounded-lg mb-2"
-              src={movieData.poster_url}
+              src={getImage(movieData.poster_url)}
               alt="post2"
             />
           </Link>
           <Row>
             {/* <Col span={3}></Col> */}
-            <Col span={20} className="flex">
-              <FaHeart size={24} className="block mx-auto mt-3" />
-              <p className="text-xl my-2">{movieData.title.substring(0, 15)}</p>
+            <Col span={24} className="flex">
+              <div className="flex mx-auto">
+                <FaHeart size={24} className="block mx-2 mt-3 w-8" />
+                <p className="text-md sm:text-lg my-2">
+                  {movieData.title.substring(0, 15)}
+                </p>
+              </div>
             </Col>
           </Row>
           <Rating
             average_rating={movieData.average_rating}
             ratingCount={movieData.total_ratings}
+            disable={true}
           />
           <p className="text-sm">{movieData.description.substring(0, 60)}...</p>
         </div>

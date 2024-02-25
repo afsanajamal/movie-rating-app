@@ -5,6 +5,7 @@ export interface MovieProps {
 export interface RatingProps {
   average_rating: number;
   ratingCount: number;
+  disable: boolean;
 }
 
 export interface Movie {
